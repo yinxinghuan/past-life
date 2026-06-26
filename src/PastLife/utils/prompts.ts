@@ -22,17 +22,6 @@ export const MEDIA: Medium[] = [
 
 export const TONES: LifeTone[] = ['tragic', 'absurd', 'noble', 'humble', 'haunted'];
 
-const MEDIUM_LABEL: Record<Medium, string> = {
-  'oil-painting': 'Oil Painting',
-  daguerreotype: 'Daguerreotype',
-  tintype: 'Tintype',
-  fresco: 'Fresco',
-  'illuminated-manuscript': 'Illuminated Manuscript',
-  woodblock: 'Woodblock Print',
-  'charcoal-sketch': 'Charcoal Sketch',
-  'funerary-portrait': 'Funerary Portrait',
-};
-
 const MEDIUM_VISUAL: Record<Medium, string> = {
   'oil-painting':
     'a museum-grade old-master oil painting: visible brushwork and impasto, ' +
@@ -298,10 +287,8 @@ export function buildPortraitPrompt(reading: PastLifeReading): string {
 }
 
 // ─── Display helpers ─────────────────────────────────────────────────────
-
-export function mediumLabel(m: Medium): string {
-  return MEDIUM_LABEL[m];
-}
+// mediumLabel + toneLabel are localized — see i18n. lifespanLabel is just the
+// year + place (proper nouns), the same in every language.
 
 export function lifespanLabel(reading: PastLifeReading): string {
   return [reading.year, reading.place].filter(Boolean).join(' · ');

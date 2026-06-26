@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { isInAigram, openAigramProfile } from '@shared/runtime';
-import { t } from '../i18n';
-import { mediumLabel, lifespanLabel } from '../utils/prompts';
+import { t, mediumLabel } from '../i18n';
+import { lifespanLabel } from '../utils/prompts';
+import { useTranslate } from '../utils/translate';
 import type { PastLife, WallEntry } from '../types';
 
 interface Props {
@@ -37,6 +38,9 @@ export default function HallWall({ entries, mine, loaded, onBack, onView, onNew 
 
   const list = scope === 'all' ? allEntries : mineEntries;
   const count = list.length;
+  // Translate the visible headlines into the viewer's locale (one batched call,
+  // cached). Canonical English shows first, then swaps when ready.
+  const txHeadlines = useTranslate(list.map((e) => e.life.reading.headline));
   const visibleEmpty =
     loaded && list.length === 0
       ? scope === 'mine'
@@ -100,7 +104,9 @@ export default function HallWall({ entries, mine, loaded, onBack, onView, onNew 
               <div className="pl-wall__card-photo-frame" aria-hidden />
             </div>
             <div className="pl-wall__card-body">
-              <div className="pl-wall__card-headline">{e.life.reading.headline}</div>
+              <div className="pl-wall__card-headline">
+                {txHeadlines[i] ?? e.life.reading.headline}
+              </div>
               <div className="pl-wall__card-tags">
                 <span className="pl-meta-chip">{lifespanLabel(e.life.reading)}</span>
                 <span className="pl-meta-chip">{mediumLabel(e.life.reading.medium)}</span>

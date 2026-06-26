@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { t } from '../i18n';
+import { useTranslate } from '../utils/translate';
 import { startBuzz, stopBuzz } from '../utils/audio';
 import type { Stage } from '../hooks/usePastLife';
 import type { PastLifeReading } from '../types';
@@ -33,6 +34,12 @@ const STAGE_STEP: Record<Stage, number> = {
 const TOTAL_STEPS = 4;
 
 export default function SummoningScreen({ stage, recordNumber, reading, selfieUrl }: Props) {
+  // Translate the streamed occupation + reading into the viewer's locale
+  // (canonical English first, swaps when ready). No-op when locale=en.
+  const tx = useTranslate(reading ? [reading.occupation, reading.meaning] : []);
+  const occupation = reading ? tx[0] ?? reading.occupation : '';
+  const meaning = reading ? tx[1] ?? reading.meaning : '';
+
   const [dots, setDots] = useState('');
   useEffect(() => {
     const id = setInterval(() => {
@@ -54,7 +61,7 @@ export default function SummoningScreen({ stage, recordNumber, reading, selfieUr
   // Stream the meaning as a typewriter once the reading resolves.
   const [typed, setTyped] = useState('');
   useEffect(() => {
-    if (!reading) {
+    if (!meaning) {
       setTyped('');
       return;
     }
@@ -62,11 +69,11 @@ export default function SummoningScreen({ stage, recordNumber, reading, selfieUr
     setTyped('');
     const id = setInterval(() => {
       i++;
-      setTyped(reading.meaning.slice(0, i));
-      if (i >= reading.meaning.length) clearInterval(id);
+      setTyped(meaning.slice(0, i));
+      if (i >= meaning.length) clearInterval(id);
     }, 28);
     return () => clearInterval(id);
-  }, [reading]);
+  }, [meaning]);
 
   const key = STAGE_KEY[stage] || 'summon_sourcing';
   const step = STAGE_STEP[stage] ?? 0;
@@ -117,7 +124,7 @@ export default function SummoningScreen({ stage, recordNumber, reading, selfieUr
           <>
             <div className="pl-summon__name">{reading.name}</div>
             <div className="pl-summon__sub">
-              {reading.place} · {reading.occupation}
+              {reading.place} · {occupation}
             </div>
             <div className="pl-summon__meaning">{typed || ' '}</div>
           </>

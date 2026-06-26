@@ -1,7 +1,10 @@
-// Lightweight i18n — en / zh, no external library. English is the default and
-// the product face; zh is an opt-in fallback only.
+// Lightweight i18n — en / zh / es / pt, no external library. English is the
+// default and the product face; the others are opt-in fallbacks that follow
+// the device language. The AI-generated reading is translated separately at
+// display time (see utils/translate.ts); these are the static UI strings +
+// the medium/tone enum labels.
 
-type Locale = 'zh' | 'en';
+type Locale = 'en' | 'zh' | 'es' | 'pt';
 
 const dict: Record<Locale, Record<string, string>> = {
   en: {
@@ -72,6 +75,21 @@ const dict: Record<Locale, Record<string, string>> = {
     notes_send: 'Send',
     notes_you: 'you',
     notes_open_in_app: 'Open in Aigram to leave a note.',
+
+    'medium_oil-painting': 'Oil Painting',
+    medium_daguerreotype: 'Daguerreotype',
+    medium_tintype: 'Tintype',
+    medium_fresco: 'Fresco',
+    'medium_illuminated-manuscript': 'Illuminated Manuscript',
+    medium_woodblock: 'Woodblock Print',
+    'medium_charcoal-sketch': 'Charcoal Sketch',
+    'medium_funerary-portrait': 'Funerary Portrait',
+
+    tone_tragic: 'TRAGIC',
+    tone_absurd: 'ABSURD',
+    tone_noble: 'NOBLE',
+    tone_humble: 'HUMBLE',
+    tone_haunted: 'HAUNTED',
   },
   zh: {
     sign_title: 'PAST LIFE',
@@ -141,6 +159,189 @@ const dict: Record<Locale, Record<string, string>> = {
     notes_send: '发送',
     notes_you: '你',
     notes_open_in_app: '在 Aigram 里打开才能留言。',
+
+    'medium_oil-painting': '油画',
+    medium_daguerreotype: '银版照相',
+    medium_tintype: '锡版照相',
+    medium_fresco: '湿壁画',
+    'medium_illuminated-manuscript': '泥金手抄本',
+    medium_woodblock: '木刻版画',
+    'medium_charcoal-sketch': '炭笔素描',
+    'medium_funerary-portrait': '殡葬肖像',
+
+    tone_tragic: '悲剧',
+    tone_absurd: '荒诞',
+    tone_noble: '高贵',
+    tone_humble: '卑微',
+    tone_haunted: '阴郁',
+  },
+  es: {
+    sign_title: 'PAST LIFE',
+    sign_sub: 'el retrato de quien fuiste antes',
+
+    threshold_pitch_top: 'Ya has estado aquí. Hace mucho.',
+    threshold_step_in: 'Siéntate con la médium',
+    threshold_open_since: 'el registro de las almas · desde siempre',
+    threshold_recalled_today: '{n} almas evocadas aquí',
+
+    seance_intro: 'No me digas quién eres. Déjame ver quién fuiste.',
+    seance_step_face: 'Muéstrame tu rostro.',
+    seance_step_q: '¿Algo se siente más antiguo de lo que debería? (o calla)',
+    seance_question: 'Algo que se siente más viejo que tú…',
+    seance_use_my_avatar: 'Usar mi rostro',
+    seance_upload: 'Usar otra foto',
+    seance_change: 'cambiar',
+    seance_cta: 'Evocar mi vida pasada',
+    seance_back: 'Salir',
+
+    summon_sourcing: 'Mirando dentro de ti',
+    summon_reading: 'Buscando la vida',
+    summon_painting: 'Trayéndola de vuelta',
+    summon_framing: 'Ahí estás',
+    summon_reading_long: 'La médium ha callado. No te muevas…',
+    summon_record: 'REGISTRO',
+
+    portrait_record: 'REGISTRO',
+    portrait_recalled: 'EVOCADA EL',
+    portrait_lifespan: 'VIDA',
+    portrait_medium: 'HECHO EN',
+    portrait_occupation: 'Fuiste',
+    portrait_death: 'Moriste',
+    portrait_epitaph: 'En la lápida',
+    portrait_reading: 'La lectura',
+    portrait_tap_to_swap: 'toca para ver el ahora',
+    portrait_now: 'ahora',
+    portrait_then: 'entonces',
+    portrait_read_more: 'Leer a la médium',
+    portrait_collapse: 'Ocultar',
+    portrait_cta_again: 'Evocar otra vida',
+    portrait_cta_wall: 'Salón de Vidas Pasadas',
+    portrait_cta_share: 'Compartir',
+    portrait_cta_share_done: 'Copiado',
+    portrait_back_to_seance: 'Sentarse otra vez',
+
+    wall_title: 'Salón de Vidas Pasadas',
+    wall_sub: 'Todos los que la médium ha evocado',
+    wall_back: 'Atrás',
+    wall_fab: 'Evoca la tuya',
+    wall_tab_all: 'Todas las almas',
+    wall_tab_mine: 'Las mías',
+    wall_count_all: 'vidas evocadas',
+    wall_count_mine: 'tuyas',
+    wall_loading: 'Abriendo el registro…',
+    wall_empty_all: 'Aún no han evocado a nadie. Sé el primero.',
+    wall_empty_mine: 'Aún no te han evocado.',
+
+    err_processing: 'La vela se apagó. Inténtalo de nuevo.',
+    err_offline: 'La sala está a oscuras ahora. Inténtalo en un momento.',
+
+    tip_first_touch: 'toca para entrar',
+
+    notes_title: 'Notas',
+    notes_empty: 'Aún no hay notas. Deja la primera.',
+    notes_placeholder: 'Deja una nota…',
+    notes_send: 'Enviar',
+    notes_you: 'tú',
+    notes_open_in_app: 'Abre en Aigram para dejar una nota.',
+
+    'medium_oil-painting': 'Pintura al óleo',
+    medium_daguerreotype: 'Daguerrotipo',
+    medium_tintype: 'Ferrotipo',
+    medium_fresco: 'Fresco',
+    'medium_illuminated-manuscript': 'Manuscrito iluminado',
+    medium_woodblock: 'Grabado en madera',
+    'medium_charcoal-sketch': 'Boceto al carbón',
+    'medium_funerary-portrait': 'Retrato funerario',
+
+    tone_tragic: 'TRÁGICA',
+    tone_absurd: 'ABSURDA',
+    tone_noble: 'NOBLE',
+    tone_humble: 'HUMILDE',
+    tone_haunted: 'SOMBRÍA',
+  },
+  pt: {
+    sign_title: 'PAST LIFE',
+    sign_sub: 'o retrato de quem você foi antes',
+
+    threshold_pitch_top: 'Você já esteve aqui. Há muito tempo.',
+    threshold_step_in: 'Sente-se com a médium',
+    threshold_open_since: 'o registro das almas · desde sempre',
+    threshold_recalled_today: '{n} almas evocadas aqui',
+
+    seance_intro: 'Não me diga quem você é. Deixe-me ver quem você foi.',
+    seance_step_face: 'Mostre-me seu rosto.',
+    seance_step_q: 'Algo parece mais antigo do que deveria? (ou fique em silêncio)',
+    seance_question: 'Algo que parece mais velho que você…',
+    seance_use_my_avatar: 'Usar meu rosto',
+    seance_upload: 'Usar outra foto',
+    seance_change: 'trocar',
+    seance_cta: 'Evocar minha vida passada',
+    seance_back: 'Sair',
+
+    summon_sourcing: 'Olhando dentro de você',
+    summon_reading: 'Encontrando a vida',
+    summon_painting: 'Trazendo-a de volta',
+    summon_framing: 'Aí está você',
+    summon_reading_long: 'A médium ficou em silêncio. Não se mexa…',
+    summon_record: 'REGISTRO',
+
+    portrait_record: 'REGISTRO',
+    portrait_recalled: 'EVOCADA EM',
+    portrait_lifespan: 'VIDA',
+    portrait_medium: 'FEITO EM',
+    portrait_occupation: 'Você foi',
+    portrait_death: 'Você morreu',
+    portrait_epitaph: 'Na lápide',
+    portrait_reading: 'A leitura',
+    portrait_tap_to_swap: 'toque para ver o agora',
+    portrait_now: 'agora',
+    portrait_then: 'antes',
+    portrait_read_more: 'Ler a médium',
+    portrait_collapse: 'Ocultar',
+    portrait_cta_again: 'Evocar outra vida',
+    portrait_cta_wall: 'Salão das Vidas Passadas',
+    portrait_cta_share: 'Compartilhar',
+    portrait_cta_share_done: 'Copiado',
+    portrait_back_to_seance: 'Sentar de novo',
+
+    wall_title: 'Salão das Vidas Passadas',
+    wall_sub: 'Todos que a médium evocou',
+    wall_back: 'Voltar',
+    wall_fab: 'Evoque a sua',
+    wall_tab_all: 'Todas as almas',
+    wall_tab_mine: 'Minhas',
+    wall_count_all: 'vidas evocadas',
+    wall_count_mine: 'suas',
+    wall_loading: 'Abrindo o registro…',
+    wall_empty_all: 'Ninguém foi evocado ainda. Seja o primeiro.',
+    wall_empty_mine: 'Você ainda não foi evocado.',
+
+    err_processing: 'A vela se apagou. Tente novamente.',
+    err_offline: 'A sala está escura agora. Tente daqui a pouco.',
+
+    tip_first_touch: 'toque para entrar',
+
+    notes_title: 'Notas',
+    notes_empty: 'Nenhuma nota ainda. Deixe a primeira.',
+    notes_placeholder: 'Deixe uma nota…',
+    notes_send: 'Enviar',
+    notes_you: 'você',
+    notes_open_in_app: 'Abra no Aigram para deixar uma nota.',
+
+    'medium_oil-painting': 'Pintura a óleo',
+    medium_daguerreotype: 'Daguerreótipo',
+    medium_tintype: 'Ferrótipo',
+    medium_fresco: 'Afresco',
+    'medium_illuminated-manuscript': 'Manuscrito iluminado',
+    medium_woodblock: 'Xilogravura',
+    'medium_charcoal-sketch': 'Esboço a carvão',
+    'medium_funerary-portrait': 'Retrato funerário',
+
+    tone_tragic: 'TRÁGICA',
+    tone_absurd: 'ABSURDA',
+    tone_noble: 'NOBRE',
+    tone_humble: 'HUMILDE',
+    tone_haunted: 'SOMBRIA',
   },
 };
 
@@ -148,13 +349,17 @@ function detectLocale(): Locale {
   if (typeof window === 'undefined') return 'en';
   try {
     const override = localStorage.getItem('game_locale');
-    if (override === 'en' || override === 'zh') return override;
+    if (override === 'en' || override === 'zh' || override === 'es' || override === 'pt')
+      return override;
   } catch {
     /* ignore */
   }
-  return typeof navigator !== 'undefined' && navigator.language.toLowerCase().startsWith('zh')
-    ? 'zh'
-    : 'en';
+  const lang =
+    typeof navigator !== 'undefined' ? navigator.language.toLowerCase() : 'en';
+  if (lang.startsWith('zh')) return 'zh';
+  if (lang.startsWith('es')) return 'es';
+  if (lang.startsWith('pt')) return 'pt';
+  return 'en';
 }
 
 const LOCALE: Locale = detectLocale();
@@ -167,4 +372,14 @@ export function t(key: string, vars?: { n?: number | string }): string {
 
 export function getLocale(): Locale {
   return LOCALE;
+}
+
+/** Localized label for an art medium enum value. */
+export function mediumLabel(medium: string): string {
+  return t(`medium_${medium}`);
+}
+
+/** Localized (upper-case) label for a life-tone enum value. */
+export function toneLabel(tone: string): string {
+  return t(`tone_${tone}`);
 }

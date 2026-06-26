@@ -7,8 +7,9 @@ import {
   MAX_LEN,
   type GuestMessage,
 } from '@shared/social/guestbook';
-import { t, getLocale } from '../i18n';
-import { mediumLabel, lifespanLabel } from '../utils/prompts';
+import { t, getLocale, mediumLabel, toneLabel } from '../i18n';
+import { lifespanLabel } from '../utils/prompts';
+import { useTranslate } from '../utils/translate';
 import type { PastLife } from '../types';
 
 interface Author {
@@ -36,14 +37,6 @@ interface Props {
   onSendNote?: (artifactId: string, text: string) => void;
 }
 
-const TONE_LABEL_EN: Record<string, string> = {
-  tragic: 'TRAGIC',
-  absurd: 'ABSURD',
-  noble: 'NOBLE',
-  humble: 'HUMBLE',
-  haunted: 'HAUNTED',
-};
-
 export default function PortraitScreen({
   life,
   viewMode,
@@ -59,6 +52,21 @@ export default function PortraitScreen({
   onSendNote,
 }: Props) {
   const { reading } = life;
+  // Canonical content is English; translate the dynamic fields for display in
+  // the viewer's locale (proper nouns stay as authored). No-op when locale=en.
+  const tx = useTranslate([
+    reading.occupation,
+    reading.cause_of_death,
+    reading.headline,
+    reading.epitaph,
+    reading.meaning,
+  ]);
+  const occupation = tx[0] ?? reading.occupation;
+  const causeOfDeath = tx[1] ?? reading.cause_of_death;
+  const headline = tx[2] ?? reading.headline;
+  const epitaph = tx[3] ?? reading.epitaph;
+  const meaning = tx[4] ?? reading.meaning;
+
   const [typed, setTyped] = useState('');
   const [skipped, setSkipped] = useState(false);
   const [showNow, setShowNow] = useState(false);
@@ -86,12 +94,12 @@ export default function PortraitScreen({
     setReadingOpen(false);
     setReadingTouched(false);
     setDraft('');
-  }, [reading.meaning]);
+  }, [meaning]);
 
   useEffect(() => {
     if (!readingOpen || !readingTouched) return;
-    if (typed.length >= reading.meaning.length) return;
-    const target = reading.meaning;
+    if (typed.length >= meaning.length) return;
+    const target = meaning;
     let i = typed.length;
     const id = setInterval(() => {
       i++;
@@ -99,11 +107,11 @@ export default function PortraitScreen({
       if (i >= target.length) clearInterval(id);
     }, 14);
     return () => clearInterval(id);
-  }, [readingOpen, readingTouched, reading.meaning, typed.length]);
+  }, [readingOpen, readingTouched, meaning, typed.length]);
 
-  const readingText = skipped ? reading.meaning : typed;
+  const readingText = skipped ? meaning : typed;
   const skipTypewriter = () => {
-    if (typed.length < reading.meaning.length) setSkipped(true);
+    if (typed.length < meaning.length) setSkipped(true);
   };
   const toggleReading = () => {
     setReadingTouched(true);
@@ -171,12 +179,12 @@ export default function PortraitScreen({
             <span className="pl-portrait__author-name">{author.userName || '·'}</span>
           </button>
         )}
-        <h1 className="pl-portrait__headline">{reading.headline}</h1>
+        <h1 className="pl-portrait__headline">{headline}</h1>
         <div className="pl-portrait__meta-chips">
           <span className="pl-meta-chip">{lifespanLabel(reading)}</span>
           <span className="pl-meta-chip">{mediumLabel(reading.medium)}</span>
           <span className="pl-meta-chip pl-meta-chip--accent">
-            {TONE_LABEL_EN[reading.tone] ?? reading.tone}
+            {toneLabel(reading.tone)}
           </span>
         </div>
       </div>
@@ -185,17 +193,17 @@ export default function PortraitScreen({
       <div className="pl-portrait__card pl-portrait__card--life">
         <div className="pl-portrait__life-row">
           <span className="pl-portrait__life-key">{t('portrait_occupation')}</span>
-          <span className="pl-portrait__life-val">{reading.occupation}</span>
+          <span className="pl-portrait__life-val">{occupation}</span>
         </div>
         <div className="pl-portrait__life-row">
           <span className="pl-portrait__life-key">{t('portrait_death')}</span>
-          <span className="pl-portrait__life-val">{reading.cause_of_death}</span>
+          <span className="pl-portrait__life-val">{causeOfDeath}</span>
         </div>
         <div className="pl-portrait__epitaph">
           <span className="pl-portrait__epitaph-mark" aria-hidden>
             ✣
           </span>
-          <span className="pl-portrait__epitaph-text">“{reading.epitaph}”</span>
+          <span className="pl-portrait__epitaph-text">“{epitaph}”</span>
         </div>
       </div>
 
