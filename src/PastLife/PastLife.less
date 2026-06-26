@@ -1164,7 +1164,9 @@
     overscroll-behavior: contain;
     -webkit-overflow-scrolling: touch;
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); // minmax(0,…) so a long
+    // username can't blow one card's track wider than its sibling (the `auto`
+    // minimum of a plain 1fr track grows to the name's width). See min-width:0.
     align-content: start;
     grid-auto-rows: max-content;
     gap: 12px;
