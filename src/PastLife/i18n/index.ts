@@ -383,3 +383,10 @@ export function mediumLabel(medium: string): string {
 export function toneLabel(tone: string): string {
   return t(`tone_${tone}`);
 }
+
+// ── Merge cartridge copy over the built-in dict (cartridge wins for 'en') ──
+import { CARTRIDGE } from '../cartridge/index';
+for (const [locale, strings] of Object.entries(CARTRIDGE.copy)) {
+  if (!dict[locale as Locale]) dict[locale as Locale] = {};
+  Object.assign(dict[locale as Locale], strings);
+}
