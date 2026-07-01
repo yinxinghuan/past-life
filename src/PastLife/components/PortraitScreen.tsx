@@ -12,6 +12,8 @@ import { lifespanLabel } from '../utils/prompts';
 import { useTranslate } from '../utils/translate';
 import type { PastLife } from '../types';
 
+const ALTERU_APP_URL = 'https://apps.apple.com/app/id6769646546';
+
 interface Author {
   userId: string;
   userName?: string;
@@ -319,7 +321,12 @@ export default function PortraitScreen({
               </button>
             </div>
           ) : (
-            <div className="pl-notes__hint">{t('notes_open_in_app')}</div>
+            <div className="pl-notes__hint pl-notes__download">
+              <span>{t('notes_open_in_app')}</span>
+              <a href={ALTERU_APP_URL} target="_blank" rel="noopener noreferrer">
+                {t('download_alteru')}
+              </a>
+            </div>
           )}
         </div>
       )}

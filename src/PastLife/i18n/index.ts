@@ -74,7 +74,8 @@ const dict: Record<Locale, Record<string, string>> = {
     notes_placeholder: 'Leave a note…',
     notes_send: 'Send',
     notes_you: 'you',
-    notes_open_in_app: 'Open in Aigram to leave a note.',
+    notes_open_in_app: 'Open in AlterU to leave a note.',
+    download_alteru: 'Get AlterU on the App Store',
 
     'medium_oil-painting': 'Oil Painting',
     medium_daguerreotype: 'Daguerreotype',
@@ -158,7 +159,8 @@ const dict: Record<Locale, Record<string, string>> = {
     notes_placeholder: '留句话……',
     notes_send: '发送',
     notes_you: '你',
-    notes_open_in_app: '在 Aigram 里打开才能留言。',
+    notes_open_in_app: '在 AlterU 中打开才能留言。',
+    download_alteru: '下载 AlterU',
 
     'medium_oil-painting': '油画',
     medium_daguerreotype: '银版照相',
@@ -242,7 +244,8 @@ const dict: Record<Locale, Record<string, string>> = {
     notes_placeholder: 'Deja una nota…',
     notes_send: 'Enviar',
     notes_you: 'tú',
-    notes_open_in_app: 'Abre en Aigram para dejar una nota.',
+    notes_open_in_app: 'Abre en AlterU para dejar una nota.',
+    download_alteru: 'Obtén AlterU en App Store',
 
     'medium_oil-painting': 'Pintura al óleo',
     medium_daguerreotype: 'Daguerrotipo',
@@ -326,7 +329,8 @@ const dict: Record<Locale, Record<string, string>> = {
     notes_placeholder: 'Deixe uma nota…',
     notes_send: 'Enviar',
     notes_you: 'você',
-    notes_open_in_app: 'Abra no Aigram para deixar uma nota.',
+    notes_open_in_app: 'Abra no AlterU para deixar uma nota.',
+    download_alteru: 'Baixe o AlterU na App Store',
 
     'medium_oil-painting': 'Pintura a óleo',
     medium_daguerreotype: 'Daguerreótipo',
